@@ -44,16 +44,19 @@ function Home() {
     visibility: 6.4, 
     pressure: 998,
     image: 'Shower.png',
-    weatherText: 'weatherText',
+    weatherText: 'Shower',
 
   });
  
 
 const[name, setName] = useState('');
+const [error, setError] = useState('');
 
-// useEffect (()=>{
+// ..........CONSTANTE FORECAST...............................//
+const [forecast, setForecast] = useState([]);
 
-// }, [])
+
+
 
   // search condition
   const handleClick = () =>{
@@ -87,17 +90,9 @@ const[name, setName] = useState('');
           imagePath = '/Shower.png'
           weatherText = "Shower"
           
-
         }
       
           
-          
-          
-          
-
-
-
-
         console.log(res.data);
         setData({
           ...data,
@@ -109,14 +104,21 @@ const[name, setName] = useState('');
           pressure: res.data.main.pressure,
           image: imagePath,
           weatherText: weatherText,
-
-        });
+          
+        })
+        setError('');
       })
-      .catch((err) => console.log(err));
+      .catch(err => {
+        if (err.response.status == 404){
+          setError("Invalid City Name")
+        } else {
+          setError('');
+        }
 
+          console.log(err)
+        });
     }
   }
-
 
 
 
@@ -129,6 +131,10 @@ const[name, setName] = useState('');
             <h4>Search</h4>
           </button>
         </div>
+        <div className="error">
+          <p>{error}</p>
+        </div>
+
       </div>
 
       <div className="firstContainer">
@@ -281,4 +287,4 @@ const[name, setName] = useState('');
     </div>
   );
 }
-export default Home;
+export default Home

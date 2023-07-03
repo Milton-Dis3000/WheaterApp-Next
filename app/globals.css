@@ -667,3 +667,11 @@ body{
     color: rgba(231, 231, 235, 1);
    
 }
+
+
+/* ERROR CITY NAME */
+.error{
+    color: rgb(238, 107, 107);
+    text-align: left;
+    margin-left: 10px;
+}
