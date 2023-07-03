@@ -39,12 +39,21 @@ function Home() {
   const [data, setData] = useState({
     celcius: 10,
     name: "Helsinki",
-    humidity: 10,
-    speed: 2,
+    humidity: 84,
+    speed: 7,
+    visibility: 6.4, 
+    pressure: 998,
+    image: 'Shower.png',
+    weatherText: 'weatherText',
+
   });
+ 
 
 const[name, setName] = useState('');
 
+// useEffect (()=>{
+
+// }, [])
 
   // search condition
   const handleClick = () =>{
@@ -54,6 +63,41 @@ const[name, setName] = useState('');
     axios
       .get(apiUrl)
       .then((res) => {
+        let imagePath='';
+        let weatherText = '';
+
+
+        if (res.data.weather[0].main == "Clouds"){
+          imagePath = "/HeavyCloud.png"
+          weatherText = "Clouds"
+        } else if (res.data.weather[0].main == "Clear"){
+          imagePath = "/Clear.png"
+          weatherText = "Clear"
+        } else if (res.data.weather[0].main == "Rain"){
+          imagePath = "/Sleet.png"
+          weatherText = "Rain"
+        
+        } else if (res.data.weather[0].main == "Drizzle"){
+          imagePath = "/HeavyRain.png"
+          weatherText = "Drizzle"
+        } else if (res.data.weather[0].main == "Mist"){
+          imagePath = "/LightCloud.png"
+          weatherText = "Mist"
+        } else {
+          imagePath = '/Shower.png'
+          weatherText = "Shower"
+          
+
+        }
+      
+          
+          
+          
+          
+
+
+
+
         console.log(res.data);
         setData({
           ...data,
@@ -63,6 +107,8 @@ const[name, setName] = useState('');
           speed: res.data.wind.speed,
           visibility: res.data.visibility,
           pressure: res.data.main.pressure,
+          image: imagePath,
+          weatherText: weatherText,
 
         });
       })
@@ -100,14 +146,14 @@ const[name, setName] = useState('');
             src="/Cloud-background.png"
             alt="cloudBackground"
           />
-          <img id="shower" src="/Shower.png" alt="shower" />
+          <img id="shower" src= {data.image} alt="shower" />
         </div>
         <div className="boxshowerText">
           <div className="centigradsText">
             <p>{data.celcius}°C</p>
           </div>
           <div className="showerText">
-            <p>Shower</p>
+            <p>{data.weatherText}</p>
           </div>
           <div className="footerToday">
             <p>Today .</p>
@@ -122,6 +168,7 @@ const[name, setName] = useState('');
 
       <div className="secondContainer">
         <div className="days">
+
           <div className="day1">
             <p>Tomorrow</p>
             <div className="container-Cloud">
@@ -133,11 +180,59 @@ const[name, setName] = useState('');
               <p>11°C</p>
             </div>
           </div>
-          <div className="day2"></div>
-          <div className="day3"></div>
-          <div className="day4"></div>
-          <div className="day5"></div>
+
+          <div className="day2">
+            <p>Wednesday</p>
+            <div className="container-Cloud">
+              <img id="cloud-img" src="/Sleet.png" alt="" />
+            </div>
+
+            <div className="max-min-grad-text">
+              <p>16°C</p>
+              <p>11°C</p>
+            </div>
+          </div>
+
+          <div className="day3">
+            <p>Thursday</p>
+            <div className="container-Cloud">
+              <img id="cloud-img" src="/Sleet.png" alt="" />
+            </div>
+
+            <div className="max-min-grad-text">
+              <p>16°C</p>
+              <p>11°C</p>
+            </div>
+          </div>
+
+
+          <div className="day4">
+            <p>Friday</p>
+            <div className="container-Cloud">
+              <img id="cloud-img" src="/Sleet.png" alt="" />
+            </div>
+
+            <div className="max-min-grad-text">
+              <p>16°C</p>
+              <p>11°C</p>
+            </div>
+          </div>
+
+
+          <div className="day5">
+            <p>Saturday</p>
+            <div className="container-Cloud">
+              <img id="cloud-img" src="/Sleet.png" alt="" />
+            </div>
+
+            <div className="max-min-grad-text">
+              <p>16°C</p>
+              <p>11°C</p>
+            </div>
+          </div>
+         
         </div>
+
         <div className="hightlightsText">
           <h2>Today’s Hightlights</h2>
         </div>

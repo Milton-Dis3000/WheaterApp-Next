@@ -219,20 +219,19 @@ body{
 
 }
 
+/* day1 */
+
 .day1{
     width: 120px;
     height: 177px;
     border: 1px solid red;
     background: rgba(30, 33, 58, 1);
-
-   
 }
 .day1 p {
     padding: 10px;
     color: white;
     display: flex;
     justify-content: center;
-
 }
 
 .container-Cloud{
@@ -243,7 +242,6 @@ body{
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
-
 
 }
 
@@ -263,36 +261,184 @@ body{
     font-size: 12px;
     display: flex;
     justify-content: center;
-
 }
 
-
+/* day2 */
 
 
 .day2{
     width: 120px;
     height: 177px;
     border: 1px solid red;
+    background: rgba(30, 33, 58, 1);
+}
+.day2 p {
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.container-Cloud{
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
+
+#cloud-img{
+    border: 1px solid rgb(67, 255, 151);
+    margin: 5px;
+    width: 60px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.max-min-grad-text{
+    display: flex;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+/* day3 */
 .day3{
     width: 120px;
     height: 177px;
     border: 1px solid red;
+    background: rgba(30, 33, 58, 1);
+}
+.day3 p {
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.container-Cloud{
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
+
+#cloud-img{
+    border: 1px solid rgb(67, 255, 151);
+    margin: 5px;
+    width: 60px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.max-min-grad-text{
+    display: flex;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+/* day4 */
 .day4{
     width: 120px;
     height: 177px;
     border: 1px solid red;
+    background: rgba(30, 33, 58, 1);
+}
+.day4 p {
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.container-Cloud{
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
+
+#cloud-img{
+    border: 1px solid rgb(67, 255, 151);
+    margin: 5px;
+    width: 60px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.max-min-grad-text{
+    display: flex;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+/* day5 */
 .day5{
     width: 120px;
     height: 177px;
     border: 1px solid red;
+    background: rgba(30, 33, 58, 1);
+}
+.day5 p {
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.container-Cloud{
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
+
+#cloud-img{
+    border: 1px solid rgb(67, 255, 151);
+    margin: 5px;
+    width: 60px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.max-min-grad-text{
+    display: flex;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
 
 /* TextoInferior */
 .hightlightsTex{
