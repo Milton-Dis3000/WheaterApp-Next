@@ -1,5 +1,9 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useEffect } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 function IconLocation() {
   return (
@@ -31,16 +35,56 @@ function IconWsw() {
   );
 }
 
+function Home() {
+  const [data, setData] = useState({
+    celcius: 10,
+    name: "Helsinki",
+    humidity: 10,
+    speed: 2,
+  });
+
+const[name, setName] = useState('');
+
+
+  // search condition
+  const handleClick = () =>{
+    if (name !== ""){
+      const apiUrl =
+      `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
+    axios
+      .get(apiUrl)
+      .then((res) => {
+        console.log(res.data);
+        setData({
+          ...data,
+          celcius: res.data.main.temp,
+          name: res.data.name,
+          humidity: res.data.main.humidity,
+          speed: res.data.wind.speed,
+          visibility: res.data.visibility,
+          pressure: res.data.main.pressure,
+
+        });
+      })
+      .catch((err) => console.log(err));
+
+    }
+  }
 
 
 
 
-
-
-
-export default function Home() {
   return (
     <div className="principalContainer">
+      <div className="searchFond">
+        <div className="search">
+          <input type="text" placeholder="search location" onChange={e => setName(e.target.value)} />
+          <button id="buttonSearch" onClick={handleClick}>
+            <h4>Search</h4>
+          </button>
+        </div>
+      </div>
+
       <div className="firstContainer">
         <div className="searchContainer">
           <div className="searchGroup">
@@ -60,7 +104,7 @@ export default function Home() {
         </div>
         <div className="boxshowerText">
           <div className="centigradsText">
-            <p>15°C</p>
+            <p>{data.celcius}°C</p>
           </div>
           <div className="showerText">
             <p>Shower</p>
@@ -71,7 +115,7 @@ export default function Home() {
           </div>
           <div className="footerIconText">
             <IconLocation />
-            <p>Helsinki</p>
+            <p>{data.name}</p>
           </div>
         </div>
       </div>
@@ -100,14 +144,46 @@ export default function Home() {
         <div className="boxTempt">
           <div className="temp1">
             <p>Wind status</p>
-            <h2>7 mph</h2>
-            <IconWsw/>
+            <div className="windText-Central">
+              <h2>{data.speed}</h2>
+              <h4>mph</h4>
+            </div>
+            <div className="flechaGroup">
+              <div id="iconFlecha">
+                <IconWsw />
+                <h5>wsw</h5>
+              </div>
+            </div>
           </div>
-          <div className="temp2"></div>
-          <div className="temp3"></div>
-          <div className="temp4"></div>
+
+          <div className="temp2">
+            <p>Humidity</p>
+            <div className="windText-Central">
+              <h2>{data.humidity}</h2>
+              <h4>%</h4>
+            </div>
+          </div>
+
+          <div className="temp3">
+          <p>Visibility</p>
+            <div className="windText-Central">
+              <h2>{data.visibility}</h2>
+              <h4>miles</h4>
+            </div>
+            
+          </div>
+          
+          <div className="temp4">
+          <p>Air Pressure</p>
+            <div className="windText-Central">
+              <h2>{data.pressure}</h2>
+              <h4>mb</h4>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   );
 }
+export default Home;

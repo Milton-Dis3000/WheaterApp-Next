@@ -12,6 +12,41 @@ body{
 }
 
 
+/* SEARCH */
+.searchFond{
+    width: 375px;
+    height: 672px;
+    background: rgba(30, 33, 58, 1);
+    border: 1px solid red;
+
+}
+
+
+.search{
+    background-color: none;
+    width: 348px;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    border: 1px solid red;
+
+}
+
+#buttonSearch{
+    width: 20%px;
+    height: auto;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+
+}
+
+
+
+
+
+
 /* FIRSCONTAINER */
 
 .firstContainer{
@@ -288,6 +323,8 @@ body{
     
 }
 
+/* temp1 */
+
 
 .temp1{
     width: 328px;
@@ -306,38 +343,181 @@ body{
     justify-content: center;
     font-size: 19px;
     padding: 20px;
+    
 }
+
+.windText-Central{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    font-size: 35px;
+    padding: 10px;
+    border: 1px solid red;
+
+}
+
 .temp1 >h2 {
     border: 1px solid red;
     background: rgba(30, 33, 58, 1);
     color: rgba(231, 231, 235, 1);
+   
+}
+
+.flechaGroup{
+    border: 1px solid rgb(21, 255, 0);
     display: flex;
     justify-content: center;
-    font-size: 36px;
-    padding: 20px;
+    text-align: center;
+   
+
+}
+
+#iconFlecha{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    
+    
+    
+    
+}
+#iconFlecha >h5{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 
 
-
-
-
+/* temp2 */
 
 .temp2{
     width: 328px;
     height: 204px;
     border: 1px solid red;
+    background: rgba(30, 33, 58, 1);
+    
    
 }
+
+.temp2 >p {
+    border: 1px solid red;
+    color: rgba(231, 231, 235, 1);
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    padding: 20px;
+    
+}
+
+.windText-Central{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    font-size: 35px;
+    padding: 10px;
+    color: rgba(231, 231, 235, 1);
+    border: 1px solid red;
+
+}
+
+.temp2 >h2 {
+    border: 1px solid red;
+    color: rgba(231, 231, 235, 1);
+   
+}
+
+/* temp3 */
+
 .temp3{
     width: 328px;
-    height: 204px;
+    height: 159px;
+    background: rgba(30, 33, 58, 1);
     border: 1px solid red;
    
 }
+
+.temp3 >p {
+    border: 1px solid red;
+    color: rgba(231, 231, 235, 1);
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    padding: 20px;
+    
+}
+
+.windText-Central{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    font-size: 35px;
+    padding: 10px;
+    color: rgba(231, 231, 235, 1);
+    border: 1px solid red;
+
+}
+
+.temp3 >h2 {
+    border: 1px solid red;
+    color: rgba(231, 231, 235, 1);
+   
+}
+
+/* temp4 */
+
+
 .temp4{
     width: 328px;
-    height: 204px;
+    height: 159px;
+    background: rgba(30, 33, 58, 1);
     border: 1px solid red;
+   
+}
+
+
+.temp4 >p {
+    border: 1px solid red;
+    color: rgba(231, 231, 235, 1);
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    padding: 20px;
+    
+}
+
+.windText-Central{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    font-size: 30px;
+    padding: 10px;
+    color: rgba(231, 231, 235, 1);
+    border: 1px solid red;
+
+}
+
+.temp4 >h2 {
+    border: 1px solid red;
+    color: rgba(231, 231, 235, 1);
    
 }
