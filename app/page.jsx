@@ -35,8 +35,6 @@ function IconWsw() {
   );
 }
 
-
-
 // Función para obtener el día de la semana abreviado
 function getDayOfWeek(dateString) {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -44,7 +42,6 @@ function getDayOfWeek(dateString) {
   const dayOfWeek = date.getDay();
   return daysOfWeek[dayOfWeek];
 }
-
 
 // Constante para imagen de proyeccion de clima
 const weatherImages = {
@@ -56,17 +53,14 @@ const weatherImages = {
   Shower: "/Shower.png",
 };
 
-
 function Home() {
-
   function getFormattedDate(dateString) {
     const date = new Date(dateString);
     const dayOfWeek = getDayOfWeek(dateString);
     const day = date.getDate();
-    const month = date.toLocaleDateString('default', { month: 'short' });
+    const month = date.toLocaleDateString("default", { month: "short" });
     return `${dayOfWeek}, ${day} ${month}`;
   }
-
 
   const [data, setData] = useState({
     celcius: 10,
@@ -137,12 +131,11 @@ function Home() {
           console.log(err);
         });
     }
-
   };
 
   const [lat, setLat] = useState(""); // Estado para almacenar la latitud
   const [lon, setLon] = useState(""); // Estado para almacenar la longitud
-  
+
   // Función para obtener la latitud y longitud actual utilizando la geolocalización del navegador
   const getGeolocation = () => {
     if (navigator.geolocation) {
@@ -159,25 +152,24 @@ function Home() {
       console.log("Geolocation is not supported by this browser.");
     }
   };
-  
+
   useEffect(() => {
     // Obtener la latitud y longitud al cargar el componente
     getGeolocation();
   }, []);
-  
+
   useEffect(() => {
     if (lat !== "" && lon !== "") {
       const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
-      
-  
+
       axios
-      .get(apiUrl)
-      .then((res) => {
-        setForecast(res.data.list.slice(0, 5)); 
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .get(apiUrl)
+        .then((res) => {
+          setForecast(res.data.list.slice(0, 5));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [lat, lon]);
 
@@ -235,26 +227,25 @@ function Home() {
         </div>
       </div>
 
-    
       <div className="secondContainer">
         <div className="days">
-        {forecast.map((day, index) => (
-  <div key={index} className={`day${index + 1}`}>
-    <p>{getFormattedDate(day.dt_txt)}</p>
-    <div className="container-Cloud">
-      <img id="cloud-img" src={weatherImages[day.weather[0].main]} alt="" />
-    </div>
-    <div className="max-min-grad-text">
-      <p>{day.main.temp_max}°C</p>
-      <p>{day.main.temp_min}°C</p>
-    </div>
-  </div>
-))}
-
-
-
-       
-        </div> 
+          {forecast.map((day, index) => (
+            <div key={index} className={`day${index + 1}`}>
+              <p>{getFormattedDate(day.dt_txt)}</p>
+              <div className="container-Cloud">
+                <img
+                  id="cloud-img"
+                  src={weatherImages[day.weather[0].main]}
+                  alt=""
+                />
+              </div>
+              <div className="max-min-grad-text">
+                <p>{day.main.temp_max}°C</p>
+                <p>{day.main.temp_min}°C</p>
+              </div>
+            </div>
+          ))}
+        </div>
 
         <div className="hightlightsText">
           <h2>Today’s Hightlights</h2>
