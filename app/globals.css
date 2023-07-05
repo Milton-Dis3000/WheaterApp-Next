@@ -76,7 +76,6 @@ body{
     margin: 20px;
     justify-content: space-between;
     
-
 }
 
 .buttonSearch{
@@ -86,7 +85,7 @@ body{
     color: rgb(188, 188, 194);
     font-size: 16px;
     font-family: 'Raleway', sans-serif;
-   
+    cursor: pointer;
    
 }
 
@@ -102,19 +101,17 @@ body{
     align-items: center;
    
    
-    
 }
 
 
 #mylocation{
     width: 30px;
     height: 30px;
-
+    
 }
 
 
 /* FOND_CLOUD */
-
 
 
 .climeImage{
@@ -135,7 +132,7 @@ body{
 }
 #shower{
     width: 150px;
-    height: 174px;
+    height: auto;
     position: absolute;
   
 }
@@ -146,9 +143,7 @@ body{
 .boxshowerText{
     width: 100%;
     height: auto;
-    
    
-    
 }
 .centigradsText{
     font-family: 'Raleway', sans-serif;

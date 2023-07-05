@@ -45,6 +45,18 @@ function getDayOfWeek(dateString) {
   return daysOfWeek[dayOfWeek];
 }
 
+
+// Constante para imagen de proyeccion de clima
+const weatherImages = {
+  Clouds: "/HeavyCloud.png",
+  Clear: "/Clear.png",
+  Rain: "/Sleet.png",
+  Drizzle: "/HeavyRain.png",
+  Mist: "/LightCloud.png",
+  Shower: "/Shower.png",
+};
+
+
 function Home() {
 
   function getFormattedDate(dateString) {
@@ -54,7 +66,6 @@ function Home() {
     const month = date.toLocaleDateString('default', { month: 'short' });
     return `${dayOfWeek}, ${day} ${month}`;
   }
-
 
 
   const [data, setData] = useState({
@@ -126,6 +137,7 @@ function Home() {
           console.log(err);
         });
     }
+
   };
 
   const [lat, setLat] = useState(""); // Estado para almacenar la latitud
@@ -156,15 +168,16 @@ function Home() {
   useEffect(() => {
     if (lat !== "" && lon !== "") {
       const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
+      
   
       axios
-        .get(apiUrl)
-        .then((res) => {
-          setForecast(res.data.list.slice(1, 6)); // Obtiene los datos para los próximos 5 días (excluyendo el día actual)
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .get(apiUrl)
+      .then((res) => {
+        setForecast(res.data.list.slice(0, 5)); 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
   }, [lat, lon]);
 
@@ -213,7 +226,7 @@ function Home() {
           </div>
           <div className="footerToday">
             <p>Today .</p>
-            <p>Fri,5 Jun</p>
+            <p>Wed, 5 jul</p>
           </div>
           <div className="footerIconText">
             <IconLocation />
@@ -226,67 +239,21 @@ function Home() {
       <div className="secondContainer">
         <div className="days">
         {forecast.map((day, index) => (
-          <div key={index} className={`day${index + 1}`}>
-            <p>{getFormattedDate(day.dt_txt)}</p>
-            <div className="container-Cloud">
-              <img id="cloud-img" src="/Sleet.png" alt="" />
-            </div>
-            <div className="max-min-grad-text">
-              <p>{day.main.temp_max}°C</p>
-              <p>{day.main.temp_min}°C</p>
-            </div>
-          </div>
-        ))}
-
-          {/* <div className="day2">
-            <p>Wednesday</p>
-            <div className="container-Cloud">
-              <img id="cloud-img" src="/Sleet.png" alt="" />
-            </div>
-
-            <div className="max-min-grad-text">
-              <p>16°C</p>
-              <p>11°C</p>
-            </div>
-          </div>
-
-          <div className="day3">
-            <p>Thursday</p>
-            <div className="container-Cloud">
-              <img id="cloud-img" src="/Sleet.png" alt="" />
-            </div>
-
-            <div className="max-min-grad-text">
-              <p>16°C</p>
-              <p>11°C</p>
-            </div>
-          </div>
+  <div key={index} className={`day${index + 1}`}>
+    <p>{getFormattedDate(day.dt_txt)}</p>
+    <div className="container-Cloud">
+      <img id="cloud-img" src={weatherImages[day.weather[0].main]} alt="" />
+    </div>
+    <div className="max-min-grad-text">
+      <p>{day.main.temp_max}°C</p>
+      <p>{day.main.temp_min}°C</p>
+    </div>
+  </div>
+))}
 
 
-          <div className="day4">
-            <p>Friday</p>
-            <div className="container-Cloud">
-              <img id="cloud-img" src="/Sleet.png" alt="" />
-            </div>
 
-            <div className="max-min-grad-text">
-              <p>16°C</p>
-              <p>11°C</p>
-            </div>
-          </div>
-
-
-          <div className="day5">
-            <p>Saturday</p>
-            <div className="container-Cloud">
-              <img id="cloud-img" src="/Sleet.png" alt="" />
-            </div>
-
-            <div className="max-min-grad-text">
-              <p>16°C</p>
-              <p>11°C</p>
-            </div>
-          </div> */}
+       
         </div> 
 
         <div className="hightlightsText">
