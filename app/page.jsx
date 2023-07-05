@@ -45,8 +45,6 @@ function getDayOfWeek(dateString) {
   return daysOfWeek[dayOfWeek];
 }
 
-
-
 function Home() {
 
   function getFormattedDate(dateString) {
@@ -130,10 +128,35 @@ function Home() {
     }
   };
 
+  const [lat, setLat] = useState(""); // Estado para almacenar la latitud
+  const [lon, setLon] = useState(""); // Estado para almacenar la longitud
+  
+  // Función para obtener la latitud y longitud actual utilizando la geolocalización del navegador
+  const getGeolocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLon(position.coords.longitude);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
+  
   useEffect(() => {
-    if (name !== "") {
-      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${name}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
-
+    // Obtener la latitud y longitud al cargar el componente
+    getGeolocation();
+  }, []);
+  
+  useEffect(() => {
+    if (lat !== "" && lon !== "") {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
+  
       axios
         .get(apiUrl)
         .then((res) => {
@@ -143,7 +166,7 @@ function Home() {
           console.log(err);
         });
     }
-  }, [name]);
+  }, [lat, lon]);
 
   return (
     <div className="principalContainer">
