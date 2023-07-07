@@ -43,7 +43,7 @@ function getDayOfWeek(dateString) {
   return daysOfWeek[dayOfWeek];
 }
 
-// Constante para imagen de proyeccion de clima
+// Constante para imagen de proyección de clima
 const weatherImages = {
   Clouds: "/HeavyCloud.png",
   Clear: "/Clear.png",
@@ -53,13 +53,38 @@ const weatherImages = {
   Shower: "/Shower.png",
 };
 
+// Función para filtrar los datos de la proyección del clima
+function filterData(data) {
+  const arrFiltered = [];
+
+  data.forEach((forecast) => {
+    const txt = forecast.dt_txt;
+    const dayForecast = parseInt(txt.substring(8, 10));
+    const hourForecast = parseInt(txt.substring(11, 13));
+
+    const today = new Date().getDate();
+
+    if (dayForecast !== today && hourForecast === 12) {
+      arrFiltered.push(forecast);
+    }
+  });
+
+  return arrFiltered;
+}
+
 function Home() {
+  // Función para obtener la fecha en el formato deseado (Sat, 8 Jul)
   function getFormattedDate(dateString) {
     const date = new Date(dateString);
     const dayOfWeek = getDayOfWeek(dateString);
     const day = date.getDate();
-    const month = date.toLocaleDateString("default", { month: "short" });
+    const month = date.toLocaleString("en-us", { month: "short" });
     return `${dayOfWeek}, ${day} ${month}`;
+  }
+
+  const [sideBar, setSideBar] = useState(false);
+  function handleSideBar() {
+    setSideBar(!sideBar);
   }
 
   const [data, setData] = useState({
@@ -73,11 +98,40 @@ function Home() {
     weatherText: "Shower",
   });
 
+  
+
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [forecast, setForecast] = useState([]);
 
-  // search condition
+
+
+  // Función para obtener la proyección del clima
+  const getForecast = async (city) => {
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        const dataFiltered = filterData(data.list);
+        setForecast(dataFiltered);
+      } else {
+        setError("Error fetching forecast");
+      }
+    } catch (error) {
+      setError("Error fetching forecast");
+    }
+  };
+
+
+  // Obtener la proyección del clima inicial al cargar la página
+  useEffect(() => {
+    getForecast(data.name);
+  }, []);
+
+  // Función para buscar el clima de una ciudad
   const handleClick = () => {
     if (name !== "") {
       const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
@@ -87,19 +141,19 @@ function Home() {
           let imagePath = "";
           let weatherText = "";
 
-          if (res.data.weather[0].main == "Clouds") {
+          if (res.data.weather[0].main === "Clouds") {
             imagePath = "/HeavyCloud.png";
             weatherText = "Clouds";
-          } else if (res.data.weather[0].main == "Clear") {
+          } else if (res.data.weather[0].main === "Clear") {
             imagePath = "/Clear.png";
             weatherText = "Clear";
-          } else if (res.data.weather[0].main == "Rain") {
+          } else if (res.data.weather[0].main === "Rain") {
             imagePath = "/Sleet.png";
             weatherText = "Rain";
-          } else if (res.data.weather[0].main == "Drizzle") {
+          } else if (res.data.weather[0].main === "Drizzle") {
             imagePath = "/HeavyRain.png";
             weatherText = "Drizzle";
-          } else if (res.data.weather[0].main == "Mist") {
+          } else if (res.data.weather[0].main === "Mist") {
             imagePath = "/LightCloud.png";
             weatherText = "Mist";
           } else {
@@ -107,7 +161,6 @@ function Home() {
             weatherText = "Shower";
           }
 
-          console.log(res.data);
           setData({
             ...data,
             celcius: res.data.main.temp,
@@ -120,9 +173,10 @@ function Home() {
             weatherText: weatherText,
           });
           setError("");
+          getForecast(res.data.name);
         })
         .catch((err) => {
-          if (err.response.status == 404) {
+          if (err.response.status === 404) {
             setError("Invalid City Name");
           } else {
             setError("");
@@ -133,74 +187,70 @@ function Home() {
     }
   };
 
-  const [lat, setLat] = useState(""); // Estado para almacenar la latitud
-  const [lon, setLon] = useState(""); // Estado para almacenar la longitud
 
-  // Función para obtener la latitud y longitud actual utilizando la geolocalización del navegador
-  const getGeolocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLat(position.coords.latitude);
-          setLon(position.coords.longitude);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  };
 
-  useEffect(() => {
-    // Obtener la latitud y longitud al cargar el componente
-    getGeolocation();
-  }, []);
+  // Función para obtener los datos del clima basados en las coordenadas geográficas
+const getWeatherByCoordinates = (latitude, longitude) => {
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
 
-  useEffect(() => {
-    if (lat !== "" && lon !== "") {
-      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=cc594a74503770cb5ddca26ecd57daa7&units=metric`;
+  axios
+    .get(apiUrl)
+    .then((res) => {
+      const weatherData = res.data;
+      const imagePath = weatherImages[weatherData.weather[0].main] || "/Shower.png";
+      const weatherText = weatherData.weather[0].main || "Shower";
 
-      axios
-        .get(apiUrl)
-        .then((res) => {
-          setForecast(res.data.list.slice(0, 5));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [lat, lon]);
+      setData({
+        ...data,
+        celcius: weatherData.main.temp,
+        name: weatherData.name,
+        humidity: weatherData.main.humidity,
+        speed: weatherData.wind.speed,
+        visibility: weatherData.visibility,
+        pressure: weatherData.main.pressure,
+        image: imagePath,
+        weatherText: weatherText,
+      });
+      setError("");
+      getForecast(weatherData.name);
+    })
+    .catch((err) => {
+      setError("Error fetching weather data");
+      console.log(err);
+    });
+};
+
+// Función para manejar el clic en el botón de ubicación actual
+const handleGetCurrentLocation = () => {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        getWeatherByCoordinates(latitude, longitude);
+      },
+      (error) => {
+        console.log("Error getting current location", error);
+      }
+    );
+  } else {
+    console.log("Geolocation is not supported");
+  }
+};
 
   return (
-    <div className="principalContainer">
-      <div className="searchFond">
-        <div className="search">
-          <input
-            id="searchStyle"
-            type="text"
-            placeholder="search location"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button id="buttonSearch" onClick={handleClick}>
-            <h4>Search</h4>
-          </button>
-        </div>
-        <div className="error">
-          <p>{error}</p>
-        </div>
-      </div>
-
-      <div className="firstContainer">
+    <main id="principalContainer">
+      <section className="firstContainer">
         <div className="searchContainer">
           <div className="searchGroup">
-            <button className="buttonSearch">Seach for places</button>
-            <div id="containerLocation">
-              <img id="mylocation" src="/mylocation.svg" alt="" />
+            <button className="buttonSearch" onClick={handleSideBar}>
+              Search for places
+            </button>
+            <div id="containerLocation" onClick={handleGetCurrentLocation}>
+            <img id="mylocation" src="/mylocation.svg" alt="" />
             </div>
           </div>
         </div>
+
         <div className="climeImage">
           <img
             id="cloudBackground"
@@ -211,23 +261,48 @@ function Home() {
         </div>
         <div className="boxshowerText">
           <div className="centigradsText">
-            <p>{data.celcius}°C</p>
+            <p>{data.celcius.toFixed(0)}°C</p>
           </div>
           <div className="showerText">
             <p>{data.weatherText}</p>
           </div>
           <div className="footerToday">
             <p>Today .</p>
-            <p>Wed, 5 jul</p>
+            <p>
+              {getDayOfWeek(new Date())}, {new Date().getDate()}{" "}
+              {new Date().toLocaleString("en-us", { month: "long" })}
+            </p>
           </div>
           <div className="footerIconText">
             <IconLocation />
             <p>{data.name}</p>
           </div>
         </div>
-      </div>
+        {sideBar === true ? (
+          <nav id="navBar">
+            <button id="btnClose" onClick={handleSideBar}>
+              X
+            </button>
+            <div className="search">
+              <input
+                id="searchStyle"
+                type="text"
+                placeholder="search location"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <button id="buttonSearch" onClick={handleClick}>
+                <h4>Search</h4>
+              </button>
+            </div>
+            <p>{error}</p>
+            <div className="error"></div>
+          </nav>
+        ) : (
+          ""
+        )}
+      </section>
 
-      <div className="secondContainer">
+      <section className="secondContainer">
         <div className="days">
           {forecast.map((day, index) => (
             <div key={index} className={`day${index + 1}`}>
@@ -240,15 +315,15 @@ function Home() {
                 />
               </div>
               <div className="max-min-grad-text">
-                <p>{day.main.temp_max}°C</p>
-                <p>{day.main.temp_min}°C</p>
+                <p>{day.main.temp_max.toFixed(0)}°C</p>
+                <p>{day.main.temp_min.toFixed(0)}°C</p>
               </div>
             </div>
           ))}
         </div>
 
         <div className="hightlightsText">
-          <h2>Today’s Hightlights</h2>
+          <h2>Today’s Highlights</h2>
         </div>
         <div className="boxTempt">
           <div className="temp1">
@@ -289,8 +364,9 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
+
 export default Home;

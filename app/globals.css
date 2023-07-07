@@ -1,26 +1,69 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700&display=swap');
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
     
 }
 
 body{
     font-family: 'Raleway', sans-serif;
-    background: rgba(16, 14, 29, 1);
-
-}
-
-
-
-/* SEARCH */
-.searchFond{
-    width: 375px;
-    height: 672px;
-    background: rgba(30, 33, 58, 1);
     
 
 }
+
+#principalContainer{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+
+/* FIRSCONTAINER */
+
+.firstContainer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 33, 58, 1);
+    color: white;
+    overflow: hidden;
+    padding: 15px 10px;
+    position: relative;
+    
+}
+
+#navBar{
+    width: 100%;
+    background: rgba(30, 33, 58, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding:5px;
+    
+    
+}
+
+#btnClose{
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    text-align: right;
+    
+}
+
+
+/* SEARCH */
 
 
 .search{
@@ -53,21 +96,7 @@ body{
 }
 
 
-
-/* FIRSCONTAINER */
-
-.firstContainer{
-    width: 375px;
-    height: 810px;
-    background: rgba(30, 33, 58, 1);
-    color: white;
-    overflow: hidden;
-    
-
-}
-
 /* navBar */
-
 
 .searchGroup{
     display: flex;
@@ -110,7 +139,6 @@ body{
     
 }
 
-
 /* FOND_CLOUD */
 
 
@@ -137,8 +165,47 @@ body{
   
 }
 
-/* TEXT_FRONTED */
 
+/* SECOND CONTAINER */
+
+.secondContainer{
+    min-height: 100vh;
+    background-color: rgb(18, 16, 32);
+  
+    
+}
+
+.hightlightsText{
+    padding: 10px 10px 10px 20px;
+}
+
+
+
+/* DESKTOP VIEW..................*/
+
+@media screen and (min-width: 1200px){
+    #principalContainer{
+        flex-direction: row;
+    }
+    .firstContainer{
+        width: 30%;
+        height: 100vh;
+      
+    }
+
+    .secondContainer{
+        width: 70%;
+        height: 100vh;
+        padding: 10px 100px 30px 120px;
+        
+    }
+    
+       
+}  
+
+
+
+/* TEXT_FRONTED */
 
 .boxshowerText{
     width: 100%;
@@ -192,13 +259,11 @@ body{
     font-family: 'Raleway', sans-serif;
 
 }
-/* Second Section */
-.secondContainer{
-    width: 375px;
-    height: 1718px;
-    background-color: rgb(18, 16, 32);
-    
-}
+
+
+
+
+
 .days{
     width: 100%;
     height: auto;
@@ -428,7 +493,7 @@ body{
     font-family: 'Raleway', sans-serif;
     font-size: 24px;
     color: rgba(231, 231, 235, 1);
-    padding-left: 20px;
+    padding-left: 0px 0px 0px 20px;
 
 }
 
@@ -654,7 +719,7 @@ body{
 
 
 
-.principalContainer{
+/* .principalContainer{
     display: grid;
     grid-template-columns: 
         repeat(
@@ -662,7 +727,7 @@ body{
             minmax(350px, 1fr)
         );
        gap: 32px 
-} 
+}  */
 
 
 
